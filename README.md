@@ -1,15 +1,20 @@
-# GAi BOT Android project (alpha scaffold)
+# GAi BOT — 8-Strategy Signal Engine
 
-This Android Studio project is a starting point for the requested floating-overlay APK. It includes the supplied browser extension source in `app/src/main/assets/extension/`, a floating overlay permission flow, and a MediaProjection permission/service scaffold.
+The signal engine uses these eight strategies:
 
-## Important status
-This is **not a finished scanner APK**. The extension relies on Chrome Extension APIs (`chrome.tabs`, content scripts, service worker) and Binance web page context. Those APIs do not run unchanged as a native Android app. The Android scaffold does not yet read pixels/recognize candles or invoke the existing signal engine. Do not use it for trading decisions.
+1. Market Structure — trend/direction
+2. Liquidity Sweep — liquidity grab
+3. Price Action — candle confirmation
+4. Volume Confirmation — move strength
+5. Support & Resistance — key levels
+6. Order Block — supply/demand zone
+7. FVG (Fair Value Gap) — imbalance/entry zone
+8. Breakout + Retest — breakout confirmation
 
-## Build
-Open this folder in Android Studio (JDK 17, Android SDK 35), allow Gradle sync, then Build > Build APK(s). The generated debug APK will be under `app/build/outputs/apk/debug/`.
+## Signal gate
 
-## Remaining work for parity
-1. Port the signal engine from `assets/extension/content.js` into a testable Android-compatible module.
-2. Implement actual MediaProjection frame capture and chart-area selection / OCR or candle extraction.
-3. Connect captured chart data to the same engine, render LONG/SHORT and Entry/TP1/TP2/SL in the overlay.
-4. Test Android 13–16 overlay, foreground-service, screen-capture consent, rotation, and battery restrictions.
+**UP:** bullish market structure + bullish price-action confirmation + bullish volume + a valid bullish Order Block, FVG, or Support level.
+
+**DOWN:** bearish market structure + bearish price-action confirmation + bearish volume + a valid bearish Order Block, FVG, or Resistance level.
+
+Liquidity Sweep and Breakout + Retest are additional confirmations. The extension remains manual-only and does not place Binance orders.
